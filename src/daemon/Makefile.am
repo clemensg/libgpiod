@@ -6,16 +6,11 @@
 # published by the Free Software Foundation.
 #
 
-if WITH_TOOLS
+AM_CFLAGS = -I$(top_srcdir)/include/ -include $(top_srcdir)/config.h
+AM_CFLAGS += -Wall -Wextra -g -D_GNU_SOURCE -L$(top_srcdir)/src/lib
+AM_LDFLAGS = -lgpiod
+DEPENDENCIES = libgpiod.la
 
-TOOLS_SUBDIR = tools
+bin_PROGRAMS = gpioctld
 
-endif
-
-if WITH_DAEMON
-
-DAEMON_SUBDIR = daemon
-
-endif
-
-SUBDIRS = . lib $(TOOLS_SUBDIR) $(DAEMON_SUBDIR)
+gpioctld_SOURCES = gpioctld.c

@@ -6,6 +6,7 @@ gpioget
 gpioset
 gpiomon
 gpiofind
+gpioctld
 *.o
 *.lo
 doc
