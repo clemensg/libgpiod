@@ -82,6 +82,25 @@ then
 	AC_CHECK_HEADERS([sys/signalfd.h], [], [HEADER_NOT_FOUND_TOOLS([sys/signalfd.h])])
 fi
 
+AC_ARG_ENABLE([bindings-cxx],
+	[AC_HELP_STRING([--enable-bindings-cxx],
+		[enable C++ bindings [default=no]])],
+	[
+		if test "x$enableval" = xyes
+		then
+			with_bindings_cxx=true
+		else
+			with_bindings_cxx=false
+		fi
+	],
+	[with_bindings_cxx = false])
+AM_CONDITIONAL([WITH_BINDINGS_CXX], [test x$with_bindings_cxx = xtrue])
+
+if test "x$with_bindings_cxx" = xtrue
+then
+	AC_PROG_CXX
+fi
+
 AC_CHECK_PROG([has_doxygen], [doxygen], [true], [false])
 AM_CONDITIONAL([HAS_DOXYGEN], [test x$has_doxygen = xtrue])
 if test "x$has_doxygen" = xfalse
@@ -93,6 +112,8 @@ AC_CONFIG_FILES([Makefile
 		 include/Makefile
 		 src/Makefile
 		 src/lib/Makefile
-		 src/tools/Makefile])
+		 src/tools/Makefile
+		 bindings/Makefile
+		 bindings/cxx/Makefile])
 
 AC_OUTPUT
